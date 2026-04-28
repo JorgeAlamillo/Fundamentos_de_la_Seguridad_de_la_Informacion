@@ -1,0 +1,41 @@
+### credstuff
+
+### Descripción
+
+We found a leak of a blackmarket website's login credentials. Can you find the password of the user `cultiris` and successfully decrypt it?Download the leak [here](https://artifacts.picoctf.net/c/151/leak.tar).The first user in `usernames.txt` corresponds to the first password in `passwords.txt`. The second user corresponds to the second password, and so on.
+### Solución
+
+┌──(JorgeMSI㉿MSI)-[~/crypto/tarea4]
+└─$ wget https://artifacts.picoctf.net/c/151/leak.tar
+--2026-04-27 07:47:11--  https://artifacts.picoctf.net/c/151/leak.tar
+Resolving artifacts.picoctf.net (artifacts.picoctf.net)... 13.225.222.105, 13.225.222.28, 13.225.222.120, ...
+Connecting to artifacts.picoctf.net (artifacts.picoctf.net)|13.225.222.105|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 30720 (30K) [application/octet-stream]
+Saving to: ‘leak.tar’
+
+leak.tar                      100%[=================================================>]  30.00K  --.-KB/s    in 0.02s
+
+2026-04-27 07:47:12 (1.51 MB/s) - ‘leak.tar’ saved [30720/30720]
+
+
+┌──(JorgeMSI㉿MSI)-[~/crypto/tarea4]
+└─$ tar -xf leak.tar
+
+┌──(JorgeMSI㉿MSI)-[~/crypto/tarea4]
+└─$ cd leak/
+
+┌──(JorgeMSI㉿MSI)-[~/crypto/tarea4/leak]
+└─$ grep -n "cultiris" usernames.txt
+378:cultiris
+
+┌──(JorgeMSI㉿MSI)-[~/crypto/tarea4/leak]
+└─$ sed -n '378p' passwords.txt
+cvpbPGS{P7e1S_54I35_71Z3}
+
+┌──(JorgeMSI㉿MSI)-[~/crypto/tarea4/leak]
+└─$ echo "cvpbPGS{P7e1S_54I35_71Z3}" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+picoCTF{C7r1F_54V35_71M3}
+
+### Notas
+### Referencias
